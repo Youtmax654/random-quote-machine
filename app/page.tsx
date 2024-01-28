@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <div
-      className="h-full duration-[2s] flex justify-center items-center"
+      className="h-full duration-[2s] flex-col flex justify-center items-center"
       style={{ backgroundColor: color }}
     >
       <div
@@ -75,6 +75,7 @@ export default function Home() {
           </a>
         </div>
       </div>
+      <h1 className="p-4 text-white font-bold">Made by Maxime Penn</h1>
     </div>
   );
 }
