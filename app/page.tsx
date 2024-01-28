@@ -6,6 +6,7 @@ import { FaSquareXTwitter } from "react-icons/fa6";
 
 export default function Home() {
   const [quoteContent, setQuoteContent] = useState(""); // Initialize quoteContent state
+  const [tweet, setTweet] = useState(""); // Initialize tweet state
   const [author, setAuthor] = useState(""); // Initialize author state
   const [color, setColor] = useState(""); // Initialize color state
 
@@ -18,6 +19,13 @@ export default function Home() {
         const quote = JSON.parse(xhr.responseText);
         setQuoteContent(quote.content); // Update quoteContent state
         setAuthor(quote.author); // Update author state
+        setTweet(
+          quote.content.replaceAll(" ", "%20") +
+            "%0A" +
+            "(" +
+            quote.author +
+            ")"
+        );
       }
     };
     xhr.send();
@@ -64,7 +72,7 @@ export default function Home() {
           </button>
           <a
             id="tweet-quote"
-            href="https://twitter.com/intent/tweet"
+            href={"https://twitter.com/intent/tweet?text=" + tweet}
             className="max-w-fit block"
           >
             <FaSquareXTwitter
