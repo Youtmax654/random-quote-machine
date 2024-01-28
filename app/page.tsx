@@ -20,11 +20,7 @@ export default function Home() {
         setQuoteContent(quote.content); // Update quoteContent state
         setAuthor(quote.author); // Update author state
         setTweet(
-          quote.content.replaceAll(" ", "%20") +
-            "%0A" +
-            "(" +
-            quote.author +
-            ")"
+          quoteContent.replaceAll(" ", "%20") + "%0A" + "(" + quote.author + ")"
         );
       }
     };
@@ -74,6 +70,7 @@ export default function Home() {
             id="tweet-quote"
             href={"https://twitter.com/intent/tweet?text=" + tweet}
             className="max-w-fit block"
+            target="_blank"
           >
             <FaSquareXTwitter
               className="duration-[2s]"
