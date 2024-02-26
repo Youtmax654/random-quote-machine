@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react"; // Import the useState hook
-import { FaQuoteLeft } from "react-icons/fa";
+import { FaCopy, FaQuoteLeft } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [quoteContent, setQuoteContent] = useState(""); // Initialize quoteContent state
@@ -27,6 +28,11 @@ export default function Home() {
     xhr.send();
   }
 
+  const writeIntoClipboard = () => {
+    navigator.clipboard.writeText(quoteContent + " - " + author);
+    toast.success("Quote copied to clipboard", { position: "top-center" });
+  };
+
   useEffect(() => {
     getQuote();
   }, []);
@@ -38,7 +44,7 @@ export default function Home() {
     >
       <div
         id="quote-box"
-        className="bg-white max-w-[600px] rounded-xl flex flex-col p-4"
+        className="bg-white w-[600px] rounded-xl flex flex-col p-4"
       >
         <div className="flex flex-row">
           <FaQuoteLeft className="duration-[2s]" size={28} color={color} />
@@ -66,18 +72,26 @@ export default function Home() {
           >
             New Quote
           </button>
-          <a
-            id="tweet-quote"
-            href={"https://twitter.com/intent/tweet?text=" + tweet}
-            className="max-w-fit block"
-            target="_blank"
-          >
-            <FaSquareXTwitter
-              className="duration-[2s]"
+          <div className="flex gap-2">
+            <FaCopy
+              className="duration-[2s] cursor-pointer"
               size={28}
               color={color}
+              onClick={writeIntoClipboard}
             />
-          </a>
+            <a
+              id="tweet-quote"
+              href={"https://twitter.com/intent/tweet?text=" + tweet}
+              className="max-w-fit block"
+              target="_blank"
+            >
+              <FaSquareXTwitter
+                className="duration-[2s]"
+                size={28}
+                color={color}
+              />
+            </a>
+          </div>
         </div>
       </div>
       <h1 className="p-4 text-white font-bold">Made by Maxime Penn</h1>
